@@ -15,9 +15,18 @@ restService.use(bodyParser.json());
 
 
 restService.post("/echo", function(req, res) {
-  return res.json({
-    displayText: "sample"
-  });
+	var speech =
+    req.body.result &&
+    req.body.result.parameters &&
+    req.body.result.parameters.echoText
+      ? req.body.result.parameters.echoText
+	: "Seems like some problem. Speak again.";
+	var speech1 ="vinay";
+	return res.json({
+		speech: speech,
+		displayText: speech,
+		source: "webhook-echo-sample"
+	});
 });
 
 restService.listen(process.env.PORT || 8000, function() {
